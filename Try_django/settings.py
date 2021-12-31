@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+#python manage.py makemigrations
+#python manage.py migrate
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'Try_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR /'templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
