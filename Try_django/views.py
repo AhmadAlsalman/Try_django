@@ -15,7 +15,8 @@ the function take in  a request(django send request) and return HTML response
 
 #HTML_STRING=""" <h1>Hello World </h1> """
 
-def home_view(request):
+def home_view(request,id=None, *args, **kwargs):
+
     article_obj =Article.objects.get(id=1)
     my_list=[300,250,200,150,100,50,0]
     my_objects=Article.objects.all()

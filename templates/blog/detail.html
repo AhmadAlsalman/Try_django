@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>{{object.title}}</h1>
+<h1>{{object.content}}</h1>
+
+<div style='margin-top:30px;'>
+    <form action='.' method="POST" >
+        
+          <label for="q" class="form-label">Enter the Title </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title">
+          
+        
+          <label for= class="form-label">content</label>
+          <textarea  class="form-control" id="exampleInputPassword1" name='content'></textarea>
+       
+        
+        <button type="submit" class="btn btn-primary" >Create Article</button>
+      </form>
+</div>
+
+{% endblock content %}
