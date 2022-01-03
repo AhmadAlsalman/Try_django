@@ -53,6 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Try_django.urls'
+LOGIN_URL='/login/'
 
 TEMPLATES = [
     {
