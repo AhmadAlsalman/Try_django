@@ -33,16 +33,20 @@ def register_view(request):
 
 @login_required
 def blog_create_view(request):
+    
+    form=ArticleForm(request.POST or None)
     context={
-        "form":ArticleForm()
+        "form":form
     }
-    if request.method=="POST":
+    if form.is_valid():
+        article_object=form.save()
+        context["form"]=ArticleForm()
 
-        title=request.POST.get("title")
-        content=request.POST.get("content")
-        article_object=Article.objects.create(title=title, content=content)
-        context['object']=article_object
-        context['created']=True
+        #title=request.POST.get("title")
+        #content=request.POST.get("content")
+        #article_object=Article.objects.create(title=title, content=content)
+        #context['object']=article_object
+        #context['created']=True
     
     return render(request,"blog/create.html",context=context)
 

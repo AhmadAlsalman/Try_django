@@ -8,6 +8,7 @@
 
 <div style='margin-top:30px;'>
     <form action='.' method="POST" >
+      {% csrf_token %}
         
           <label for="q" class="form-label">Enter the Title </label>
           <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title">
