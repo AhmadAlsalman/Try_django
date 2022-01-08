@@ -8,18 +8,17 @@
 {% block content %}
 {% if not request.user.is_authenticated %}
     <div style='margin-top:30px;'>
-        <form  method="POST" >
-            {% csrf_token %}
+        <form  method="POST" >{% csrf_token %}
             {{form.as_p}}
 
-            <button type="submit" class="btn btn-primary" >login</button>
-          </form>
-          <p>need  an account ?<a href="/register">Register</a></p>
+            <button type="submit" class="btn btn-primary" >Register</button>
+        </form>
+          <p>Already have an account ?<a href="/login">Login</a></p>
     </div>
 {% else %}
   <div>
     <div class="alert alert-success" role="alert">
-      you are already logged in. would you like to  :  <a href="/logout" class="alert-link">Logout</a>?
+      you are already logged in and cannot register would you like to  :  <a href="/logout" class="alert-link">Logout</a>?
     </div>
   </div>
   {% endif %}
