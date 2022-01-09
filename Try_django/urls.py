@@ -23,7 +23,7 @@ urlpatterns = [
     path('',home_view),
     path('blog/',views.article_search_view),
     path('blog/create/',views.blog_create_view),
-    path('blog/<int:id>/',views.blog_detail_view),
+    path('blog/<slug:slug>/',views.blog_detail_view),
     path('admin/', admin.site.urls),
     path('login/',views.login_view),
     path('logout/',views.logout_view),

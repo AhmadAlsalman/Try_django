@@ -34,7 +34,7 @@
             {% if x.title %}
             <li>
           
-               <a href='/blog/{{x.id}}/'> {{x.title}}-{{x.content}}</a>
+               <a href='{{x.get_absolute_url}}'> {{x.title}}-{{x.content}}</a>
                 
                 </li>
             {% endif %}

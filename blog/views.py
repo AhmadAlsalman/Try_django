@@ -1,10 +1,13 @@
+from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import query
+from django.http.response import Http404
 from django.shortcuts import render, redirect
 from .models import Article
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm, ArticleFormOld
+from django.db.models import Q
 
 
 def register_view(request):
@@ -57,10 +60,19 @@ def blog_create_view(request):
     
     return render(request,"blog/create.html",context=context)
 
-def blog_detail_view(request,id):
+def blog_detail_view(request,slug=None):
     article_obj=None
-    if id is not None:
-        article_obj=Article.objects.get(id=id)
+    if slug is not None:
+        article_obj=Article.objects.get(slug=slug)
+        try:
+            article_obj=Article.objects.get(slug=slug)
+        except Article.DoesNotExist:
+            raise Http404
+
+        except Article.MultipleObjectsReturned:
+            article_obj=Article.objects.filter(slug=slug).first()
+        except:
+            raise Http404
 
     context={
         "object":article_obj,
@@ -69,20 +81,13 @@ def blog_detail_view(request,id):
     return render(request,"blog/detail.html",context=context)
 
 def article_search_view(request):
-    query_dict=request.GET  #this is dictionary
-    #query=query_dict.get("q") #<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="q"
-    
-    try:
-        query=int(query_dict.get("q"))
-    except:
-        query=None
-
-    article_obj=None
+    query=request.GET.get('q')
+    qs=Article.objects.all()
     if query is not None:
-        article_obj=Article.objects.get(id=query)
-
+        lookups=Q(title__icontains=query) #we can use multible Q lookuos =Q(title__icontains=query)|Q(content__icontains=query)
+        qs=Article.objects.filter(lookups)
     context={
-        "object":article_obj
+        "object_list":qs
 
     }
     return render(request, "blog/search.html", context=context)

@@ -11,6 +11,10 @@ class Article(models.Model):
     updated=models.DateTimeField(auto_now=True)
     slug=models.SlugField(blank=True, null=True)
 
+    def get_absolute_url(self):
+        return f'/blog/{self.slug}/'
+    
+
 
     def save(self,*args, **kwargs ):
         #this function mean : 
